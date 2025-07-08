@@ -1,0 +1,57 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f0f0f0;
+  font-family: sans-serif;
+}
+
+.info {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(3, 80px);
+  gap: 16px;
+}
+
+.hole {
+  width: 80px;
+  height: 80px;
+  background: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.mole {
+  width: 50px;
+  height: 50px;
+  background: #fbbf24;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #0006;
+  border: 2px solid #fff;
+  position: absolute;
+}
+
+#game-over {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: red;
+  display: none;
+}
+
+#restart {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  display: none;
+}
