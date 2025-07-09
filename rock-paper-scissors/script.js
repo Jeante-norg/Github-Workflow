@@ -133,3 +133,153 @@ resetBtn.addEventListener("click", resetGame);
 updateScores();
 updateRoundInfo();
 resetBtn.style.display = "none";
+
+const winSound = new Audio(
+  "assets/win.mp3" // Replace with your win sound URL
+);
+const loseSound = new Audio(
+  "assets/lose.mp3" // Replace with your lose sound URL
+);
+const tieSound = new Audio(
+  "assets/tie.mp3" // Replace with your tie sound URL
+);
+
+// Play different sounds for win, lose, tie
+function playResultSound(result) {
+  if (result === "win") {
+    winSound.currentTime = 0;
+    winSound.play();
+  } else if (result === "lose") {
+    loseSound.currentTime = 0;
+    loseSound.play();
+  } else {
+    tieSound.currentTime = 0;
+    tieSound.play();
+  }
+}
+
+// Patch handleChoice to play sound
+const originalHandleChoice = handleChoice;
+function handleChoiceWithSound(e) {
+  if (round > maxRounds) return;
+
+  const playerChoice = e.currentTarget.getAttribute("data-choice");
+  const computerChoice = getComputerChoice();
+  const result = getResult(playerChoice, computerChoice);
+
+  playResultSound(result);
+
+  if (result === "win") playerScore++;
+  else if (result === "lose") computerScore++;
+
+  updateScores();
+  showFeedback(result, playerChoice, computerChoice);
+
+  if (round === maxRounds) {
+    setTimeout(endGame, 600);
+  }
+
+  round++;
+  updateRoundInfo();
+}
+
+// Remove previous listeners and add new ones
+choiceButtons.forEach((button) => {
+  button.removeEventListener("click", handleChoice);
+  button.addEventListener("click", handleChoiceWithSound);
+});
+function addWinnerGlow(button) {
+  button.classList.add("winner-glow");
+  setTimeout(() => {
+    button.classList.remove("winner-glow");
+  }, 500);
+}
+
+// Patch handleChoiceWithSound to add winner-glow on win
+function handleChoiceWithGlow(e) {
+  if (round > maxRounds) return;
+
+  const playerChoice = e.currentTarget.getAttribute("data-choice");
+  const computerChoice = getComputerChoice();
+  const result = getResult(playerChoice, computerChoice);
+
+  playResultSound(result);
+
+  if (result === "win") {
+    playerScore++;
+    addWinnerGlow(e.currentTarget);
+  } else if (result === "lose") {
+    computerScore++;
+  }
+
+  updateScores();
+  showFeedback(result, playerChoice, computerChoice);
+
+  if (round === maxRounds) {
+    setTimeout(endGame, 600);
+  }
+
+  round++;
+  updateRoundInfo();
+}
+
+// Remove previous listeners and add new ones
+choiceButtons.forEach((button) => {
+  button.removeEventListener("click", handleChoiceWithSound);
+  button.addEventListener("click", handleChoiceWithGlow);
+});
+
+// Example CSS for winner-glow (add to your stylesheet):
+// .winner-glow {
+//   box-shadow: 0 0 12px 4px #4ade80, 0 0 0 2px #22c55e;
+//   transition: box-shadow 0.2s;
+// }
+function animateFeedback() {
+  feedback.classList.add("feedback-animate");
+  setTimeout(() => {
+    feedback.classList.remove("feedback-animate");
+  }, 600);
+}
+
+// Patch showFeedback to add animation after updating feedback
+const originalShowFeedback = showFeedback;
+function showFeedbackWithAnimation(result, player, computer) {
+  originalShowFeedback(result, player, computer);
+  animateFeedback();
+}
+
+// Replace all usages of showFeedback with showFeedbackWithAnimation
+function patchShowFeedbackInHandlers() {
+  // Patch in handleChoiceWithGlow
+  choiceButtons.forEach((button) => {
+    button.removeEventListener("click", handleChoiceWithGlow);
+    button.addEventListener("click", function (e) {
+      if (round > maxRounds) return;
+
+      const playerChoice = e.currentTarget.getAttribute("data-choice");
+      const computerChoice = getComputerChoice();
+      const result = getResult(playerChoice, computerChoice);
+
+      playResultSound(result);
+
+      if (result === "win") {
+        playerScore++;
+        addWinnerGlow(e.currentTarget);
+      } else if (result === "lose") {
+        computerScore++;
+      }
+
+      updateScores();
+      showFeedbackWithAnimation(result, playerChoice, computerChoice);
+
+      if (round === maxRounds) {
+        setTimeout(endGame, 600);
+      }
+
+      round++;
+      updateRoundInfo();
+    });
+  });
+}
+
+patchShowFeedbackInHandlers();

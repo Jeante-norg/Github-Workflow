@@ -1,0 +1,222 @@
+/* styles.css */
+body {
+  background: #f2f2f2;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  max-width: 400px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 2px 12px #0002;
+  text-align: center;
+}
+
+button {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+#feedback {
+  min-height: 2.5em;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+#reset-btn {
+  margin-top: 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  display: none;
+}
+
+#scoreboard {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 16px #0001;
+  padding: 1.5rem 1rem;
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #22223b;
+  letter-spacing: 0.02em;
+}
+@media (max-width: 500px) {
+  #app {
+    max-width: 95vw;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  #scoreboard {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 0.5rem;
+    font-size: 1rem;
+  }
+
+  button {
+    width: 100%;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    padding: 0.75rem 0;
+  }
+}
+.winner-glow {
+  box-shadow: 0 0 0 4px #ffe066, 0 0 16px 8px #ffd700aa;
+  border-color: #ffd700;
+  animation: winner-glow-pulse 1s infinite alternate;
+}
+
+@keyframes winner-glow-pulse {
+  0% {
+    box-shadow: 0 0 0 4px #ffe066, 0 0 16px 8px #ffd700aa;
+  }
+  100% {
+    box-shadow: 0 0 0 8px #ffe066, 0 0 32px 16px #ffd70088;
+  }
+}
+.feedback-animate {
+  animation: feedback-fade-scale 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes feedback-fade-scale {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+body {
+  background: linear-gradient(135deg, #0f2027 0%, #2c5364 50%, #f9f9f9 100%);
+  /* Subtle animated gradient for a modern look */
+  background-size: 200% 200%;
+  animation: gradient-move 8s ease-in-out infinite;
+}
+
+@keyframes gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#scoreboard {
+  /* Futuristic glassmorphism effect */
+  background: linear-gradient(
+    135deg,
+    rgba(40, 60, 120, 0.7) 0%,
+    rgba(80, 120, 255, 0.25) 100%
+  );
+  backdrop-filter: blur(8px) saturate(1.3);
+  border: 1.5px solid rgba(120, 180, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18), 0 1.5px 8px #00eaff44;
+  border-radius: 1.25rem;
+  padding: 2rem 1.25rem;
+  margin: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #e0e7ff;
+  letter-spacing: 0.04em;
+  transition: box-shadow 0.3s, border 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+#scoreboard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(120deg, #00eaff33 0%, #fff0 60%, #aaffff22 100%);
+  opacity: 0.7;
+  z-index: 0;
+}
+
+#scoreboard > * {
+  z-index: 1;
+}
+
+#scoreboard {
+  /* Add a subtle neon glow */
+  box-shadow: 0 0 8px 2px #00eaff55, 0 8px 32px 0 rgba(31, 38, 135, 0.18),
+    0 1.5px 8px #00eaff44;
+}
+button,
+.choice,
+#reset-btn {
+  transition: background 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover,
+.choice:hover,
+#reset-btn:hover {
+  background: #e0e7ff;
+  color: #22223b;
+  box-shadow: 0 2px 12px #00eaff44, 0 0 0 2px #00eaff55;
+  border-color: #00eaff;
+  transform: translateY(-2px) scale(1.04);
+}
+
+button:active,
+.choice:active,
+#reset-btn:active {
+  background: #b6ccff;
+  color: #22223b;
+  box-shadow: 0 1px 4px #00eaff33;
+  border-color: #0099cc;
+  transform: scale(0.97);
+}
+
+#reset-btn {
+  transition: background 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#reset-btn:hover {
+  background: #00eaff;
+  color: #22223b;
+  box-shadow: 0 2px 12px #00eaff88, 0 0 0 2px #00eaffcc;
+  border-color: #00eaff;
+  transform: translateY(-2px) scale(1.04);
+}
+
+#reset-btn:active {
+  background: #0099cc;
+  color: #e0e7ff;
+  box-shadow: 0 1px 4px #00eaff55;
+  border-color: #0099cc;
+  transform: scale(0.97);
+}
